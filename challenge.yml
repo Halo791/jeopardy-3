@@ -1,0 +1,25 @@
+name: Report Vault
+category: Web
+difficulty: Hard
+value: 300
+flag: Olivia26{report_vault_polluted_access}
+description: |
+  Report Vault menyimpan preferensi export laporan untuk user internal.
+  Akun tamu hanya boleh membuka laporan publik, sedangkan laporan private membutuhkan admin export access.
+
+  Temukan flag di laporan private.
+hints:
+  - Fitur preference menerima JSON nested yang fleksibel.
+  - Tidak semua property object harus benar-benar dimiliki object itu sendiri.
+connection_info: http://HOST:8003
+files:
+  - Dockerfile
+  - server.js
+  - package.json
+  - docker-compose.yml
+tags:
+  - web
+  - prototype-pollution
+  - nodejs
+  - express
+

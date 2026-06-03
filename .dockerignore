@@ -1,0 +1,8 @@
+node_modules/
+npm-debug.log
+.git/
+README.md
+solve.sh
+challenge.yml
+docker-compose.yml
+
