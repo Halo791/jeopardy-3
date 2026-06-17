@@ -158,11 +158,18 @@ app.get("/api/me", (req, res) => {
 });
 
 app.post("/api/preferences", (req, res) => {
-  if (!req.body || typeof req.body !== "object" || Array.isArray(req.body)) {
-    return res.status(400).json({ error: "JSON object required" });
+  if (
+    !req.body ||
+    typeof req.body !== "object" ||
+    Array.isArray(req.body) ||
+    !req.body.preferences ||
+    typeof req.body.preferences !== "object" ||
+    Array.isArray(req.body.preferences)
+  ) {
+    return res.status(400).json({ error: "preferences object required" });
   }
 
-  mergeDeep(req.session.user, req.body);
+  mergeDeep(req.session.user.preferences, req.body.preferences);
   res.json({ ok: true, user: req.session.user });
 });
 
@@ -175,4 +182,3 @@ app.get("/reports/private", (req, res) => {
 });
 
 app.listen(8000, "0.0.0.0");
-

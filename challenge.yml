@@ -1,7 +1,7 @@
 name: Report Vault
 category: Web
 difficulty: Hard
-value: 300
+value: 400
 flag: Olivia26{report_vault_polluted_access}
 description: |
   Report Vault menyimpan preferensi export laporan untuk user internal.
@@ -10,7 +10,8 @@ description: |
   Temukan flag di laporan private.
 hints:
   - Fitur preference menerima JSON nested yang fleksibel.
-  - Tidak semua property object harus benar-benar dimiliki object itu sendiri.
+  - Perhatikan bagaimana recursive merge menangani key object yang punya perilaku khusus di JavaScript.
+  - Pengecekan akses membaca property user secara langsung; property lookup JavaScript tidak selalu berhenti di object itu sendiri.
 connection_info: http://HOST:8003
 files:
   - Dockerfile
@@ -22,4 +23,3 @@ tags:
   - prototype-pollution
   - nodejs
   - express
-

